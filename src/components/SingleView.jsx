@@ -1,14 +1,14 @@
 import React from "react";
 import Home from "./Home";
+import { Link } from "react-router-dom";
 
-function SingleView({ name, img, breed, status }) {
+function SingleView({ name, img, id }) {
   return (
     <>
       <div className="puppy">
-        <p>{name}</p>
+        <h2>{name}</h2>
         <img src={img}></img>
-        <p>{breed}</p>
-        <p>{status}</p>
+        <Link to={`/${id}`}>See Details</Link>
       </div>
     </>
   );

@@ -20,15 +20,18 @@ function Home() {
   }, []);
   return (
     <>
+      <h1>Puppy Bowl</h1>
+      Form to add Pups here along with functionality to POST
       <div>
         {puppies.map((pup) => {
           return (
             <SingleView
               key={pup.id}
               name={pup.name}
-              breed={pup.breed}
-              status={pup.status}
+              // breed={pup.breed}
+              // status={pup.status}
               img={pup.imageUrl}
+              id={pup.id}
             />
           );
         })}
