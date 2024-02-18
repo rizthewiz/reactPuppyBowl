@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Home from "./components/Home";
 import SingleView from "./components/SingleView";
 import SelectedPuppy from "./components/SelectedPuppy";
+import PuppyForm from "./components/PuppyForm";
 
 function App() {
   const [selectedPuppyId, setSelectedPuppyId] = useState(null);
@@ -12,12 +13,13 @@ function App() {
     <>
       <div>
         <nav id="navbar">
-          <Link to="/">All View</Link>
+          <Link to="/">View All Pups!</Link>
           {/* <Link to="/:id">Single View</Link> */}
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:id" element={<SelectedPuppy />} />
+          <Route path="/puppyform" element={<PuppyForm />} />
         </Routes>
       </div>
     </>

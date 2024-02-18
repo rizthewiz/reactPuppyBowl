@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SingleView from "./SingleView";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [puppies, setPuppies] = useState([]);
@@ -22,6 +23,9 @@ function Home() {
     <>
       <h1>Puppy Bowl</h1>
       Form to add Pups here along with functionality to POST
+      <h2>
+        Want to add a puppy? <Link to={`/puppyform`}>Click here</Link>
+      </h2>
       <div>
         {puppies.map((pup) => {
           return (
