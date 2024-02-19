@@ -13,6 +13,7 @@ function SelectedPuppy() {
       try {
         const pups = await axios(`${api}/${id}`);
         setSelectedPuppy(pups.data.data.player);
+        console.log(pups);
       } catch (err) {
         console.error("Issue getting players!", err);
       }
