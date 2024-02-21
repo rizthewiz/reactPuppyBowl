@@ -7,38 +7,45 @@ function PuppyForm() {
   const [newPuppy, setNewPuppy] = useState({
     breed: "",
     name: "",
-    imageUrl: "",
+    imageUrl: "type url here",
+    status: "bench",
   });
-  const [puppyStatus, setPuppyStatus] = useState("");
-  // do functionality for puppy status handle change
-  // when Submit is pressed prevent default and only submit if puppyStatus and newPuppy true
-  // If false give error on window for user
-  // If true give success message, render pup to page, and clear form
+  const [addedPup, setAddedPup] = useState([]);
+
+  // Give success message, and render pup to page. How to render created pup?
 
   const api = `https://fsa-puppy-bowl.herokuapp.com/api/2308-acc-et-web-pt-b/players`;
 
   function handleUserChange(e) {
     const { name, value } = e.target;
+    console.log(name);
     setNewPuppy((preValue) => {
       return { ...preValue, [name]: value };
     });
-    console.log(newPuppy);
   }
 
-  useEffect(() => {
-    async function addPup() {
-      try {
-      } catch (err) {
-        console.error("Issue adding player!", err);
-      }
+  async function addPup(e) {
+    e.preventDefault();
+    try {
+      axios
+        .post(api, newPuppy)
+        .then(function (response) {
+          setAddedPup(response.data.data.newPlayer);
+          console.log(addedPup);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } catch (err) {
+      console.error("Issue adding player!", err);
     }
-    addPup();
-  }, []);
+  }
 
   return (
     <>
       <h1>Puppy Bowl Form</h1>
-      <form>
+      Please fill out the form below.
+      <form onSubmit={(e) => addPup(e)}>
         <label htmlFor="name">
           Puppy Name
           <input
@@ -57,7 +64,7 @@ function PuppyForm() {
             onChange={(e) => handleUserChange(e)}
           />
         </label>
-        <label htmlFor="picture">
+        <label htmlFor="picture" id="img">
           Puppy Picture
           <input
             type="text"
@@ -66,16 +73,26 @@ function PuppyForm() {
             onChange={(e) => handleUserChange(e)}
           />
         </label>
-        <label htmlFor="field">
-          Field
-          <input type="checkbox" name="field" value="field" />
-        </label>
-        <label htmlFor="bench">
-          Bench
-          <input type="checkbox" name="bench" value="bench" />
+        <br />
+        <label htmlFor="status">
+          Do you want your puppy on the bench or on the field?
+          <select required onChange={(e) => handleUserChange(e)} name="status">
+            <option value={"bench"}>Bench</option>
+            <option value={"field"}>Field</option>
+          </select>
         </label>
         <button type="submit">Submit!</button>
       </form>
+      <section>
+        When you press submit if your puppy is succeffully added it will preview
+        below
+        {{ addedPup } && <h2>{addedPup.name}</h2>}
+        {{ addedPup } && (
+          <img src={addedPup.imageUrl} alt="no url added" id="img" />
+        )}
+        {{ addedPup } && <p>{addedPup.breed}</p>}
+        {{ addedPup } && <p>{addedPup.status}</p>}
+      </section>
     </>
   );
 }

@@ -7,7 +7,7 @@ function SingleView({ name, img, id }) {
     <>
       <div className="puppy">
         <h2>{name}</h2>
-        <img src={img}></img>
+        <img src={img} id="img"></img>
         <Link to={`/${id}`}>See Details</Link>
       </div>
     </>

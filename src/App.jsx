@@ -11,16 +11,18 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="container">
         <nav id="navbar">
           <Link to="/">View All Pups!</Link>
           {/* <Link to="/:id">Single View</Link> */}
         </nav>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/:id" element={<SelectedPuppy />} />
-          <Route path="/puppyform" element={<PuppyForm />} />
-        </Routes>
+        <div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/:id" element={<SelectedPuppy />} />
+            <Route path="/puppyform" element={<PuppyForm />} />
+          </Routes>
+        </div>
       </div>
     </>
   );

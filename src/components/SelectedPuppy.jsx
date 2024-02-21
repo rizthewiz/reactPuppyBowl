@@ -11,26 +11,41 @@ function SelectedPuppy() {
   useEffect(() => {
     async function getPups() {
       try {
-        const pups = await axios(`${api}/${id}`);
-        setSelectedPuppy(pups.data.data.player);
-        console.log(pups);
+        const pup = await axios(`${api}/${id}`);
+        setSelectedPuppy(pup.data.data.player);
+        console.log(pup);
       } catch (err) {
-        console.error("Issue getting players!", err);
+        console.error("Issue getting player!", err);
       }
     }
     getPups();
   }, []);
 
+  async function deletePup() {
+    axios
+      .delete(`${api}/${id}`)
+      .then((response) => {
+        console.log(`Deleted ${selectedPuppy.name}`);
+      })
+      .catch((error) => {
+        console.erroe(error);
+      });
+  }
+
   return (
     <>
-      <h1>Puppy Bowl</h1>
-      <h2>{selectedPuppy.name}</h2>
-      <img src={selectedPuppy.imageUrl} alt="no image" />
-      <p>{selectedPuppy.breed}</p>
-      <p>{selectedPuppy.status}</p>
-      <br />
-      Adding an edit and delete button and will put functionality for PUT/DELETE
-      here
+      <section>
+        <h1>Puppy Bowl</h1>
+        <h2>{selectedPuppy.name}</h2>
+        <img src={selectedPuppy.imageUrl} alt="no image" />
+        <p>{selectedPuppy.breed}</p>
+        <p>{selectedPuppy.status}</p>
+        <br />
+        <button>Edit Pup</button>
+        <button onClick={deletePup}>Remove Pup</button>
+        Adding an edit and delete button and will put functionality for
+        PUT/DELETE here
+      </section>
     </>
   );
 }
