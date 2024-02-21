@@ -6,6 +6,7 @@ import axios from "axios";
 function SelectedPuppy() {
   const { id } = useParams();
   const [selectedPuppy, setSelectedPuppy] = useState({});
+  const [mes, setMes] = useState("");
   const api = `https://fsa-puppy-bowl.herokuapp.com/api/2308-acc-et-web-pt-b/players`;
 
   useEffect(() => {
@@ -25,7 +26,7 @@ function SelectedPuppy() {
     axios
       .delete(`${api}/${id}`)
       .then((response) => {
-        console.log(`Deleted ${selectedPuppy.name}`);
+        setMes(`${selectedPuppy.name} has been removed`);
       })
       .catch((error) => {
         console.erroe(error);
@@ -45,6 +46,7 @@ function SelectedPuppy() {
         <button onClick={deletePup}>Remove Pup</button>
         Adding an edit and delete button and will put functionality for
         PUT/DELETE here
+        {mes && <h3> {mes} </h3>}
       </section>
     </>
   );
